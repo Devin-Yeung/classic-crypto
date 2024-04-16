@@ -93,8 +93,8 @@ pub fn left_shift_1(data: u32) -> u32 {
 pub fn init_perm(data: u64) -> u64 {
     let mut result = 0;
     for i in 0..64 {
-        // little endian
-        let bit = (get_nth_bit_u64(data, INIT_PERM_LUT[i] - 1, Little)) << i;
+        // big endian
+        let bit = (get_nth_bit_u64(data, INIT_PERM_LUT[i] - 1, Big)) << (63 - i);
         result |= bit;
     }
     result
