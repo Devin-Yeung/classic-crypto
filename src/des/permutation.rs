@@ -1,5 +1,5 @@
-use crate::visual::get_nth_bit_u64;
 use crate::visual::Endian::{Big, Little};
+use crate::visual::{get_nth_bit_u32, get_nth_bit_u64};
 
 #[rustfmt::skip]
 const INIT_PERM_LUT: &[usize; 64] = &[
@@ -37,6 +37,19 @@ const PERMUTED_CHOICE_2: &[usize; 48] = &[
     30, 40, 51, 45, 33, 48,
     44, 49, 39, 56, 34, 53,
     46, 42, 50, 36, 29, 32,
+];
+
+#[rustfmt::skip]
+// https://en.wikipedia.org/wiki/DES_supplementary_material
+const EXPANSION_LUT: [usize; 48] = [
+    32,	 1,  2,	 3,	 4,	 5,
+     4,	 5,  6,	 7,	 8,	 9,
+     8,	 9, 10,	11,	12,	13,
+    12,	13,	14,	15,	16,	17,
+    16,	17,	18,	19,	20,	21,
+    20,	21,	22,	23,	24,	25,
+    24,	25,	26,	27,	28,	29,
+    28,	29,	30,	31,	32,	 1,
 ];
 
 fn pc_1(data: u64) -> (u32, u32) {
@@ -100,9 +113,19 @@ pub fn init_perm(data: u64) -> u64 {
     result
 }
 
+pub fn expansion_perm(data: u32) -> u64 {
+    let mut result: u64 = 0;
+    for i in 0..48 {
+        let bit = get_nth_bit_u32(data, EXPANSION_LUT[i] - 1, Big) as u64;
+        result |= bit << (47 - i);
+    }
+    debug_assert!(result >> 48 == 0);
+    result
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::des::permutation::{init_perm, left_shift_1, pc_1, pc_2};
+    use crate::des::permutation::{expansion_perm, init_perm, left_shift_1, pc_1, pc_2};
 
     #[test]
     fn test_init_perm() {
@@ -132,5 +155,12 @@ mod tests {
         let rk1 = pc_2(c1, d1);
         let expected: u64 = 0b000110_110000_001011_101111_111111_000111_000001_110010;
         assert_eq!(rk1, expected);
+    }
+
+    #[test]
+    fn test_expansion() {
+        let data: u32 = 0b_1111_0000_1010_1010_1111_0000_1010_1010;
+        let expect: u64 = 0b_011110_100001_010101_010101_011110_100001_010101_010101;
+        assert_eq!(expansion_perm(data), expect);
     }
 }

@@ -6,6 +6,29 @@ pub enum Endian {
     Little,
 }
 
+macro_rules! impl_get_nth_bit {
+    ($func_name: ident, $type: ty) => {
+        pub fn $func_name(data: $type, nth: usize, endian: Endian) -> $type {
+            let width: usize = mem::size_of::<$type>() * 8;
+            assert!(nth < width, "nth should be < {}", width);
+            let ret = match endian {
+                Endian::Big => {
+                    let shifted = data >> (width - nth - 1);
+                    shifted & 0x1
+                }
+                Endian::Little => {
+                    let shifted = data >> nth;
+                    shifted & 0x1
+                }
+            };
+            debug_assert!(ret == 0 || ret == 1);
+            ret
+        }
+    };
+}
+
+impl_get_nth_bit!(get_nth_bit_u32, u32);
+
 pub fn get_nth_bit_u64(data: u64, nth: usize, endian: Endian) -> u64 {
     let width: usize = mem::size_of::<u64>() * 8;
     assert!(nth < width, "nth should be < {}", width);
