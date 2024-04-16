@@ -6,20 +6,22 @@ pub enum Endian {
     Little,
 }
 
-pub fn get_nth_bit_u64(data: u64, nth: usize, endian: Endian) -> usize {
+pub fn get_nth_bit_u64(data: u64, nth: usize, endian: Endian) -> u64 {
     let width: usize = mem::size_of::<u64>() * 8;
     assert!(nth < width, "nth should be < {}", width);
 
-    match endian {
+    let ret = match endian {
         Endian::Big => {
             let shifted = data >> (width - nth - 1);
-            shifted as usize & 0x1
+            shifted & 0x1
         }
         Endian::Little => {
             let shifted = data >> nth;
-            shifted as usize & 0x1
+            shifted & 0x1
         }
-    }
+    };
+    debug_assert!(ret == 0 || ret == 1);
+    ret
 }
 
 fn visualize_n_th_bit_u8(data: u8, nth: u8, endian: Endian) {
