@@ -1,1 +1,1 @@
-mod permutation;
+pub mod hazmat;

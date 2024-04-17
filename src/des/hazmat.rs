@@ -1,4 +1,4 @@
-use crate::visual::Endian::{Big, Little};
+use crate::visual::Endian::Big;
 use crate::visual::{get_nth_bit_u32, get_nth_bit_u64};
 
 #[rustfmt::skip]
@@ -52,7 +52,7 @@ const EXPANSION_LUT: [usize; 48] = [
     28,	29,	30,	31,	32,	 1,
 ];
 
-fn pc_1(data: u64) -> (u32, u32) {
+pub fn pc_1(data: u64) -> (u32, u32) {
     let mut c = 0u32;
     for i in 0..28 {
         // It's crazy, why big endian?
@@ -73,7 +73,7 @@ fn pc_1(data: u64) -> (u32, u32) {
     (c, d)
 }
 
-fn pc_2(c: u32, d: u32) -> u64 {
+pub fn pc_2(c: u32, d: u32) -> u64 {
     let c = c as u64;
     let d = d as u64;
     debug_assert!(c >> 28 == 0);
@@ -125,7 +125,7 @@ pub fn expansion_perm(data: u32) -> u64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::des::permutation::{expansion_perm, init_perm, left_shift_1, pc_1, pc_2};
+    use crate::des::hazmat::{expansion_perm, init_perm, left_shift_1, pc_1, pc_2};
 
     #[test]
     fn test_init_perm() {
