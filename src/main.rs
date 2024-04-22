@@ -1,3 +1,4 @@
+mod aes;
 mod des;
 mod visual;
 
