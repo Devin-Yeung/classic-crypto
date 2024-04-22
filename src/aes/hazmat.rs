@@ -1,3 +1,5 @@
+use log::debug;
+
 #[rustfmt::skip]
 const SBOX: [u8; 256] = [
     0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
@@ -54,6 +56,7 @@ pub fn key_expansion(key: &[u32; 4], w: &mut [u32; 44]) {
 
     while i < 4 {
         w[i] = key[i];
+        debug!("w[{}] = {:08x}", i, key[i]);
         i += 1;
     }
 
@@ -61,7 +64,23 @@ pub fn key_expansion(key: &[u32; 4], w: &mut [u32; 44]) {
         let temp = w[i - 1];
         if i % 4 == 0 {
             w[i] = sub_words(rot_words(temp)) ^ rcon(i / 4) ^ w[i - 4];
+            debug!(
+                "w[{}] = sub_words(rot_words(w[{}])) ^ rcon({}) ^ w[{}] = {:08x}",
+                i,
+                i - 1,
+                i / 4,
+                i - 4,
+                w[i]
+            );
         } else {
+            debug!(
+                "w[{}] = w[{}] ^ w[{}] = {:08x} ^ {:08x}",
+                i,
+                i - 4,
+                i - 1,
+                w[i - 4],
+                w[i - 1]
+            );
             w[i] = w[i - 4] ^ temp;
         }
         i += 1;

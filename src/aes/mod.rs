@@ -1,1 +1,1 @@
-mod hazmat;
+pub mod hazmat;
