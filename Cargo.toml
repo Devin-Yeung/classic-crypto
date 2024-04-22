@@ -9,5 +9,10 @@ edition = "2021"
 name = "des"
 path = "src/bin/des.rs"
 
+[[bin]]
+name = "aes-keyexpansion"
+path = "src/bin/aes-keyexpansion.rs"
+
 [dependencies]
+env_logger = "0.11.3"
 log = "0.4.21"
