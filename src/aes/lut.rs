@@ -60,3 +60,31 @@ pub(crate) const GF_MUL_3: [u8; 256] =
     0x3b, 0x38, 0x3d, 0x3e, 0x37, 0x34, 0x31, 0x32, 0x23, 0x20, 0x25, 0x26, 0x2f, 0x2c, 0x29, 0x2a,
     0x0b, 0x08, 0x0d, 0x0e, 0x07, 0x04, 0x01, 0x02, 0x13, 0x10, 0x15, 0x16, 0x1f, 0x1c, 0x19, 0x1a
  ];
+
+#[cfg(test)]
+mod tests {
+    use crate::aes::lut::{GF_MUL_2, GF_MUL_3};
+    use ::gf256::gf::gf;
+
+    // https://docs.rs/gf256/0.3.0/gf256/index.html
+    #[gf(polynomial = 0x11b, generator = 0x3)]
+    type gf256_rijndael;
+
+    #[test]
+    pub fn test_gf_mul_3() {
+        for (i, v) in GF_MUL_3.iter().enumerate() {
+            let a = gf256_rijndael(i as u8);
+            let b = gf256_rijndael(3);
+            assert_eq!(*v, (a * b).0);
+        }
+    }
+
+    #[test]
+    pub fn test_gf_mul_2() {
+        for (i, v) in GF_MUL_2.iter().enumerate() {
+            let a = gf256_rijndael(i as u8);
+            let b = gf256_rijndael(2);
+            assert_eq!(*v, (a * b).0);
+        }
+    }
+}
