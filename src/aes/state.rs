@@ -1,3 +1,6 @@
+use tabled::builder::Builder;
+use tabled::settings::Style;
+
 #[repr(transparent)]
 pub struct State {
     pub bytes: [u8; 16],
@@ -43,5 +46,16 @@ impl State {
 
     pub(crate) fn empty() -> Self {
         Self { bytes: [0; 16] }
+    }
+
+    pub fn matrix_view(&self) -> String {
+        let mut builder = Builder::default();
+        for row in 0..4 {
+            let record = (0..4)
+                .map(|col| format!("0x{:02x}", self.get(row, col)))
+                .collect::<Vec<_>>();
+            builder.push_record(record);
+        }
+        builder.build().with(Style::modern()).to_string()
     }
 }
