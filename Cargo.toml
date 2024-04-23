@@ -13,6 +13,10 @@ path = "src/bin/des.rs"
 name = "aes-keyexpansion"
 path = "src/bin/aes-keyexpansion.rs"
 
+[[bin]]
+name = "aes-round"
+path = "src/bin/aes-round.rs"
+
 [dependencies]
 env_logger = "0.11.3"
 log = "0.4.21"
