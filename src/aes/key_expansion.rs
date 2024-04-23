@@ -32,8 +32,9 @@ pub fn rcon(round: usize) -> u32 {
     }
 }
 
-pub fn key_expansion(key: &[u32; 4], w: &mut [u32; 44]) {
+pub fn key_expansion(key: &[u32; 4]) -> [u32; 44] {
     let mut i = 0;
+    let mut w = [0u32; 44];
 
     while i < 4 {
         w[i] = key[i];
@@ -66,6 +67,8 @@ pub fn key_expansion(key: &[u32; 4], w: &mut [u32; 44]) {
         }
         i += 1;
     }
+
+    return w;
 }
 
 #[cfg(test)]
@@ -75,8 +78,7 @@ mod tests {
     #[test]
     pub fn key_expansion_test() {
         let key: [u32; 4] = [0x2b7e_1516, 0x28ae_d2a6, 0xabf7_1588, 0x09cf_4f3c];
-        let mut w: [u32; 44] = [0; 44];
-        key_expansion(&key, &mut w);
+        let w = key_expansion(&key);
         assert_eq!(w[43], 0xb6630ca6);
     }
 
