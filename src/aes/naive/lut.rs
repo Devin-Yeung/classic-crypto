@@ -19,7 +19,7 @@ pub(crate) const SBOX: [u8; 256] = [
 /* F */ 0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16
 ];
 
-// https://crypto.stackexchange.com/questions/62603/aes-mixcolumns-predefined-lookup-2d-tables-and-rcon-predefined-lookup-2d-table/62648#62648
+// https://crypto.stackexchange.com/a/62648
 #[rustfmt::skip]
 pub(crate) const GF_MUL_2: [u8; 256] =
 [
