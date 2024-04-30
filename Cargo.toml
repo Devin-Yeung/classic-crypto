@@ -17,11 +17,18 @@ path = "src/bin/aes-keyexpansion.rs"
 name = "aes-round"
 path = "src/bin/aes-round.rs"
 
+[[bin]]
+name = "aes"
+path = "src/bin/aes.rs"
+
 [dependencies]
 env_logger = "0.11.3"
 log = "0.4.21"
 tabled = "0.15.0"
+rand = "0.8.4"
 
 [dev-dependencies]
 gf256 = "0.3.0"
 
+[profile.release]
+debug = true
