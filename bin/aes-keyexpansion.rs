@@ -1,4 +1,4 @@
-use cns::aes::hazmat::*;
+use cns::aes::naive::*;
 use env_logger;
 
 fn main() {
@@ -6,5 +6,5 @@ fn main() {
         .filter_level(log::LevelFilter::Debug)
         .init();
     let key: [u32; 4] = [0xFFFF_FFFF, 0xFFFF_FFFF, 0xFFFF_FFFF, 0xFFFF_FFFF];
-    let rks = key_expansion(&key);
+    let _rks = key_expansion(&key);
 }

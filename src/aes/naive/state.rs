@@ -71,7 +71,7 @@ impl State {
 
     pub fn sub_bytes(&mut self) {
         for byte in self.bytes.iter_mut() {
-            *byte = crate::aes::lut::SBOX[*byte as usize];
+            *byte = crate::aes::naive::lut::SBOX[*byte as usize];
         }
     }
 }

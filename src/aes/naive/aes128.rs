@@ -1,5 +1,5 @@
-use crate::aes::key_expansion::key_expansion;
-use crate::aes::state::State;
+use crate::aes::naive::key_expansion::key_expansion;
+use crate::aes::naive::state::State;
 
 pub fn aes128_encryption(plaintext: [u8; 16], key: &[u32; 4]) -> [u8; 16] {
     let mut state = State::from_raw(plaintext);
@@ -20,7 +20,7 @@ pub fn aes128_encryption(plaintext: [u8; 16], key: &[u32; 4]) -> [u8; 16] {
 
 #[cfg(test)]
 mod test {
-    use crate::aes::aes128_encryption;
+    use crate::aes::naive::aes128_encryption;
 
     #[test]
     fn test_aes128_encryption() {

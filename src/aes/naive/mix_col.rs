@@ -1,5 +1,5 @@
-use crate::aes::lut::{GF_MUL_2, GF_MUL_3};
-use crate::aes::state::State;
+use crate::aes::naive::lut::{GF_MUL_2, GF_MUL_3};
+use crate::aes::naive::state::State;
 
 impl State {
     pub fn mix_col(&mut self) {

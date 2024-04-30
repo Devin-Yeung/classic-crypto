@@ -1,4 +1,4 @@
-use crate::aes::state::State;
+use crate::aes::naive::state::State;
 
 impl State {
     #[inline]
@@ -39,7 +39,7 @@ impl State {
 
 #[cfg(test)]
 mod tests {
-    use crate::aes::state::State;
+    use crate::aes::naive::state::State;
 
     #[test]
     fn test_shift_rows() {

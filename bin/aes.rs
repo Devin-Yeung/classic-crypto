@@ -1,4 +1,4 @@
-use cns::aes::aes128_encryption;
+use cns::aes::naive::aes128_encryption;
 use rand;
 use rand::Rng;
 use std::hint::black_box;

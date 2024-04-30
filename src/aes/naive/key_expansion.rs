@@ -1,4 +1,4 @@
-use crate::aes::lut::SBOX;
+use crate::aes::naive::lut::SBOX;
 use log::debug;
 
 pub fn rot_words(words: u32) -> u32 {

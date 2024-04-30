@@ -1,4 +1,4 @@
-use cns::aes::hazmat::{key_expansion, State};
+use cns::aes::naive::{key_expansion, State};
 
 fn bytes_to_u32_array(bytes: &[u8; 16], big_endian: bool) -> [u32; 4] {
     let mut ints = [0_u32; 4];

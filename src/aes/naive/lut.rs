@@ -86,7 +86,7 @@ pub(crate) const GF_MUL_11: [u8; 256] =
 
 #[cfg(test)]
 mod tests {
-    use crate::aes::lut::{GF_MUL_2, GF_MUL_3};
+    use crate::aes::naive::lut::{GF_MUL_2, GF_MUL_3};
     use ::gf256::gf::gf;
 
     // https://docs.rs/gf256/0.3.0/gf256/index.html
