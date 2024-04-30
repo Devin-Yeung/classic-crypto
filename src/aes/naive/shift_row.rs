@@ -12,12 +12,8 @@ impl State {
 
     #[inline]
     fn shift_row_2(&mut self) {
-        let tmp = self.bytes[2];
-        self.bytes[2] = self.bytes[10];
-        self.bytes[10] = tmp;
-        let tmp = self.bytes[6];
-        self.bytes[6] = self.bytes[14];
-        self.bytes[14] = tmp;
+        self.bytes.swap(2, 10);
+        self.bytes.swap(6, 14);
     }
 
     #[inline]

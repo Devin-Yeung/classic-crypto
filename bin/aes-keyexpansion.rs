@@ -1,5 +1,4 @@
 use cns::aes::naive::*;
-use env_logger;
 
 fn main() {
     env_logger::builder()

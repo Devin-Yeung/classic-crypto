@@ -15,7 +15,7 @@ pub fn aes128_encryption(plaintext: [u8; 16], key: &[u32; 4]) -> [u8; 16] {
     state.sub_bytes();
     state.shift_rows();
     state.add_rk(&rks[40..44]);
-    return state.bytes;
+    state.bytes
 }
 
 #[cfg(test)]

@@ -3,7 +3,7 @@ use log::debug;
 
 pub fn rot_words(words: u32) -> u32 {
     let reserve = words >> 24;
-    return ((words << 8) & 0xFFFFFF00) | reserve;
+    ((words << 8) & 0xFFFFFF00) | reserve
 }
 
 pub fn sub_words(words: u32) -> u32 {
@@ -81,7 +81,7 @@ pub fn key_expansion(key: &[u32; 4]) -> [u32; 44] {
         i += 1;
     }
 
-    return w;
+    w
 }
 
 #[cfg(test)]

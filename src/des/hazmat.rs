@@ -100,7 +100,7 @@ pub fn left_shift_1(data: u32) -> u32 {
 
     let preserve = (data & 0x0800_0000) >> 27;
     debug_assert!(preserve == 0 || preserve == 1); // only 1 bit is preserved
-    return ((data << 1) | preserve) & 0x0FFF_FFFF;
+    ((data << 1) | preserve) & 0x0FFF_FFFF
 }
 
 pub fn init_perm(data: u64) -> u64 {
@@ -144,7 +144,8 @@ mod tests {
     #[test]
     fn round_key_1() {
         // https://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm
-        let key: u64 = 0b0001_0011_0011_0100_01010111_01111001_10011011_10111100_11011111_11110001;
+        let key: u64 =
+            0b0001_0011_0011_0100_0101_0111_0111_1001_1001_1011_1011_1100_1101_1111_1111_0001;
         let (c0, d0) = pc_1(key);
         assert_eq!(c0, 0b_1111000011001100101010101111);
         assert_eq!(d0, 0b_0101010101100110011110001111);

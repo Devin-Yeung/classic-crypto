@@ -20,7 +20,7 @@ pub fn egcd(a: i32, b: i32) -> (i32, i32, i32) {
     info!("ax + by = ({}) * ({}) + ({}) * ({}) = {}", a, x, b, y, gcd);
 
     // Return the tuple
-    return (gcd, x, y);
+    (gcd, x, y)
 }
 
 #[cfg(test)]
