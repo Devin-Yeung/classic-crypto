@@ -7,19 +7,19 @@ edition = "2021"
 
 [[bin]]
 name = "des"
-path = "src/bin/des.rs"
+path = "bin/des.rs"
 
 [[bin]]
 name = "aes-keyexpansion"
-path = "src/bin/aes-keyexpansion.rs"
+path = "bin/aes-keyexpansion.rs"
 
 [[bin]]
 name = "aes-round"
-path = "src/bin/aes-round.rs"
+path = "bin/aes-round.rs"
 
 [[bin]]
 name = "aes"
-path = "src/bin/aes.rs"
+path = "bin/aes.rs"
 
 [dependencies]
 env_logger = "0.11.3"
