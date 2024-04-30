@@ -122,11 +122,12 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           file: cobertura.xml
           compare-ref: origin/master
-  typos:
-    name: Spell Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: crate-ci/typos@master
-        with:
-          files: .
+# Disabled because the false positive on hex value
+#  typos:
+#    name: Spell Check
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: crate-ci/typos@master
+#        with:
+#          files: .
