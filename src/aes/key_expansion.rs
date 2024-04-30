@@ -45,6 +45,18 @@ pub fn key_expansion(key: &[u32; 4]) -> [u32; 44] {
     while i < 44 {
         let temp = w[i - 1];
         if i % 4 == 0 {
+            debug!("rot_words(w[{}]) = {:08x}", i - 1, rot_words(temp));
+            debug!(
+                "sub_words(rot_words(w[{}])) = {:08x}",
+                i - 1,
+                sub_words(rot_words(temp))
+            );
+            debug!(
+                "sub_words(rot_words(w[{}])) ^ rcon({}) = {:08x}",
+                i - 1,
+                i / 4,
+                sub_words(rot_words(temp)) ^ rcon(i / 4)
+            );
             w[i] = sub_words(rot_words(temp)) ^ rcon(i / 4) ^ w[i - 4];
             debug!(
                 "w[{}] = sub_words(rot_words(w[{}])) ^ rcon({}) ^ w[{}] = {:08x}",
@@ -55,15 +67,16 @@ pub fn key_expansion(key: &[u32; 4]) -> [u32; 44] {
                 w[i]
             );
         } else {
+            w[i] = w[i - 4] ^ temp;
             debug!(
-                "w[{}] = w[{}] ^ w[{}] = {:08x} ^ {:08x}",
+                "w[{}] = w[{}] ^ w[{}] = {:08x} ^ {:08x} = {:08x}",
                 i,
                 i - 4,
                 i - 1,
                 w[i - 4],
-                w[i - 1]
+                w[i - 1],
+                w[i]
             );
-            w[i] = w[i - 4] ^ temp;
         }
         i += 1;
     }
