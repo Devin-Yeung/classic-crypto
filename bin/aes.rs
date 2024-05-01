@@ -1,4 +1,4 @@
-use cns::aes::naive::aes128_encryption;
+use cns::aes::perf::rijndael_alg_fst::aes128_encryption;
 
 use rand::Rng;
 use std::hint::black_box;
@@ -22,14 +22,14 @@ pub fn gen_bench_key() -> [u32; 4] {
 }
 
 fn main() {
-    let data = gen_bench_data(16);
+    let mut data = gen_bench_data(16);
     let key = gen_bench_key();
     // set timer
     let start = std::time::Instant::now();
     debug_assert!(data.len() % 16 == 0);
     for i in 0..data.len() / 16 {
-        let block = &data[i * 16..(i + 1) * 16];
-        let x = aes128_encryption(block.try_into().unwrap(), &key);
+        let block = &mut data[i * 16..(i + 1) * 16];
+        let x = aes128_encryption(block, &key);
         black_box(x);
     }
     let elapsed = start.elapsed();
